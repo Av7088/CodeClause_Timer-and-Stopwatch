@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch </title>
+    <link rel="stylesheet" href="stopwatch.css">
+</head>
+
+<body>
+    <div id="container">
+        <div id="time">
+            <span class="digit" id="hr">00</span>
+            <span class="txt">Hr</span>
+            <span class="digit" id="min">00</span>
+            <span class="txt">Min</span>
+            <span class="digit" id="sec">00</span>
+            <span class="txt">Sec</span>
+            <span class="digit" id="count">00</span>
+
+        </div>
+        <div id="btn-container">
+            <button class="btn" id="start" onclick="start()">Start</button>
+            <button class="btn" id="stop" onclick="stop()">Stop</button>
+            <button class="btn" id="reset" onclick="reset()">Reset</button>
+        </div>
+    </div>
+    <!-- <script src="js/stopwatch.js"></script> -->
+    <script>
+        let hr = 0;
+        let min = 0;
+        let sec = 0;
+        let count = 0;
+        let timer = false;
+
+        function start() {
+            timer = true;
+            stopwatch();
+        }
+
+        function stop() {
+            timer = false;
+
+        }
+
+        function reset() {
+            timer = false;
+            hr = 0;
+            min = 0;
+            sec = 0;
+            count = 0;
+
+            document.getElementById("hr").innerHTML = "00";
+            document.getElementById("min").innerHTML = "00";
+            document.getElementById("sec").innerHTML = "00";
+            document.getElementById("count").innerHTML = "00";
+        }
+
+        function stopwatch() {
+            if (timer == true) {
+                count = count + 1;
+                if (count == 100) {  // for second 
+                    sec = sec + 1;
+                    count = 0;
+                }
+                if (sec == 60) { // for minute
+                    min = min + 1;
+                    sec = 0;
+                }
+                if (min == 60) {
+                    hr = hr + 1;
+                    min = 0;
+                    sec = 0
+                }
+                var hrString = hr;
+                var minString = min;
+                var secString = sec;
+                var countString = count;
+                if (hr < 10) {
+                    hrString = "0" + hrString;
+                }
+                if (min < 10) {
+                    minString = "0" + minString;
+                }
+                if (sec < 10) {
+                    secString = "0" + secString;
+                }
+                if (count < 10) {
+                    countString = "0" + countString;
+                }
+                document.getElementById("count").innerHTML = countString;
+                document.getElementById("sec").innerHTML = secString;
+                document.getElementById("min").innerHTML = minString;
+                document.getElementById("hr").innerHTML = hrString;
+
+                setTimeout("stopwatch()", 10); // yaha pe her 10 mili second pr codition chlta rahega aur count ki value ko increase krta hain jb tk ki timer ki value false na ho kahne ka mtlb jb tk koi stop ya reset pr click nhi karega tb tk ye chlta ragega ek bar start hone ke bad 
+            }
+        }
+
+    </script>
+</body>
+
+</html>
